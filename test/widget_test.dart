@@ -30,12 +30,8 @@ void main() {
     );
 
     if (aiModeFinder.evaluate().isEmpty) {
-      debugPrint('Available texts: ' +
-          tester
-              .widgetList(find.byType(Text))
-              .map((w) => (w as Text).data)
-              .toList()
-              .toString());
+      debugPrint('Available texts: '
+          '${tester.widgetList(find.byType(Text)).map((w) => (w as Text).data).toList()}');
       fail('Could not find the "Play Against AI" option to tap.');
     }
 
