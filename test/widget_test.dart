@@ -21,7 +21,7 @@ void main() {
 
     // Tap the 'Start Game' button on the launch page
     await tester.tap(find.text('Start Game'));
-    await tester.pump(const Duration(seconds: 1));
+    await tester.pumpAndSettle(); // Wait for navigation and animations
 
     // Select 'Play Against AI' mode
     final aiModeFinder = find.ancestor(
