@@ -24,7 +24,12 @@ void main() {
     await tester.pump(const Duration(seconds: 1));
 
     // Select 'Play Against AI' mode
-    await tester.tap(find.text('Play Against AI'));
+    await tester.tap(
+      find.ancestor(
+        of: find.text('Play Against AI'),
+        matching: find.byType(GestureDetector),
+      ).first,
+    );
     await tester.pump(const Duration(seconds: 1));
 
     // Tap the 'Start Game' button on the game mode selection page
