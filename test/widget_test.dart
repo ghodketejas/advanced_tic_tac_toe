@@ -14,22 +14,22 @@ void main() {
       (WidgetTester tester) async {
     // Build the app
     await tester.pumpWidget(const AdvancedTicTacToeRoot());
-    await tester.pumpAndSettle();
+    await tester.pump(const Duration(seconds: 1));
 
     // Check for the main title
     expect(find.text('Advanced Tic Tac Toe'), findsOneWidget);
 
     // Tap the 'Start Game' button on the launch page
     await tester.tap(find.text('Start Game'));
-    await tester.pumpAndSettle();
+    await tester.pump(const Duration(seconds: 1));
 
     // Select 'Play Against AI' mode
     await tester.tap(find.text('Play Against AI'));
-    await tester.pumpAndSettle();
+    await tester.pump(const Duration(seconds: 1));
 
     // Tap the 'Start Game' button on the game mode selection page
     await tester.tap(find.widgetWithText(ElevatedButton, 'Start Game'));
-    await tester.pumpAndSettle();
+    await tester.pump(const Duration(seconds: 1));
 
     // There should be at least one local board (Stack)
     expect(find.byType(Stack), findsWidgets);
