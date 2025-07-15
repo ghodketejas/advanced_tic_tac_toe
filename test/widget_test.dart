@@ -24,14 +24,18 @@ void main() {
     await tester.pump(const Duration(seconds: 1));
 
     // Select 'Play Against AI' mode
-    await tester.tap(
-      find
-          .ancestor(
-            of: find.text('Play Against AI'),
-            matching: find.byType(GestureDetector),
-          )
-          .first,
+    final aiModeFinder = find.ancestor(
+      of: find.text('Play Against AI'),
+      matching: find.byType(GestureDetector),
     );
+
+    if (aiModeFinder.evaluate().isEmpty) {
+      debugPrint('Available texts: ' +
+          tester.widgetList(find.byType(Text)).map((w) => (w as Text).data).toList().toString());
+      fail('Could not find the "Play Against AI" option to tap.');
+    }
+
+    await tester.tap(aiModeFinder.first);
     await tester.pump(const Duration(seconds: 1));
 
     // Tap the 'Start Game' button on the game mode selection page
