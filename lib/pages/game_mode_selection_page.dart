@@ -36,123 +36,125 @@ class _GameModeSelectionPageState extends State<GameModeSelectionPage> {
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(24.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(height: 20),
-              Text(
-                'Choose Your Game Mode',
-                style: TextStyle(
-                  fontSize: 28,
-                  fontWeight: FontWeight.bold,
-                  color: Theme.of(context).colorScheme.primary,
-                ),
-              ),
-              const SizedBox(height: 32),
-
-              // Game Mode Options
-              _buildModeOption(
-                title: 'Play Against Friend',
-                subtitle: 'No stats recorded',
-                icon: Icons.people,
-                mode: 'friend',
-                color: Colors.green,
-              ),
-              const SizedBox(height: 16),
-              _buildModeOption(
-                title: 'Play Against AI',
-                subtitle: 'Stats recorded and shown on main screen',
-                icon: Icons.computer,
-                mode: 'ai',
-                color: Colors.blue,
-              ),
-
-              const SizedBox(height: 32),
-
-              // Only show 'Who goes first?' for AI mode
-              if (selectedMode == 'ai') ...[
-                const Text(
-                  'Who goes first?',
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(height: 20),
+                Text(
+                  'Choose Your Game Mode',
                   style: TextStyle(
-                    fontSize: 20,
+                    fontSize: 28,
                     fontWeight: FontWeight.bold,
-                    color: Colors.white,
+                    color: Theme.of(context).colorScheme.primary,
                   ),
-                ),
-                const SizedBox(height: 16),
-                Row(
-                  children: [
-                    CustomChoiceChip(
-                      label: 'Player',
-                      selected: playerStartsFirst,
-                      onTap: () {
-                        setState(() {
-                          playerStartsFirst = true;
-                        });
-                      },
-                      selectedColor: const Color(0xFF00FFF7),
-                    ),
-                    const SizedBox(width: 16),
-                    CustomChoiceChip(
-                      label: 'AI',
-                      selected: !playerStartsFirst,
-                      onTap: () {
-                        setState(() {
-                          playerStartsFirst = false;
-                        });
-                      },
-                      selectedColor: const Color(0xFFFF9900),
-                    ),
-                  ],
                 ),
                 const SizedBox(height: 32),
-              ],
 
-              const Spacer(),
+                // Game Mode Options
+                _buildModeOption(
+                  title: 'Play Against Friend',
+                  subtitle: 'No stats recorded',
+                  icon: Icons.people,
+                  mode: 'friend',
+                  color: Colors.green,
+                ),
+                const SizedBox(height: 16),
+                _buildModeOption(
+                  title: 'Play Against AI',
+                  subtitle: 'Stats recorded and shown on main screen',
+                  icon: Icons.computer,
+                  mode: 'ai',
+                  color: Colors.blue,
+                ),
 
-              // Start Game Button
-              SizedBox(
-                width: double.infinity,
-                child: ElevatedButton.icon(
-                  onPressed: selectedMode != null
-                      ? () {
-                          if (selectedMode == 'friend') {
-                            Navigator.pushNamed(context, '/game', arguments: {
-                              'mode': 'friend',
-                              'playerStarts': true,
-                            });
-                          } else if (selectedMode == 'ai') {
-                            Navigator.pushNamed(context, '/game', arguments: {
-                              'mode': 'ai',
-                              'playerStarts': playerStartsFirst,
-                            });
-                          }
-                        }
-                      : null,
-                  icon: const Icon(Icons.play_arrow, color: Colors.black),
-                  label: const Text('Start Game',
-                      style: TextStyle(color: Colors.black)),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: selectedMode != null
-                        ? Theme.of(context).colorScheme.secondary
-                        : Colors.grey,
-                    foregroundColor: Colors.black,
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 40, vertical: 18),
-                    textStyle: const TextStyle(
-                        fontSize: 20, fontWeight: FontWeight.bold),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
+                const SizedBox(height: 32),
+
+                // Only show 'Who goes first?' for AI mode
+                if (selectedMode == 'ai') ...[
+                  const Text(
+                    'Who goes first?',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
                     ),
-                    shadowColor: selectedMode != null
-                        ? Theme.of(context).colorScheme.secondary
-                        : Colors.grey,
-                    elevation: selectedMode != null ? 12 : 0,
+                  ),
+                  const SizedBox(height: 16),
+                  Row(
+                    children: [
+                      CustomChoiceChip(
+                        label: 'Player',
+                        selected: playerStartsFirst,
+                        onTap: () {
+                          setState(() {
+                            playerStartsFirst = true;
+                          });
+                        },
+                        selectedColor: const Color(0xFF00FFF7),
+                      ),
+                      const SizedBox(width: 16),
+                      CustomChoiceChip(
+                        label: 'AI',
+                        selected: !playerStartsFirst,
+                        onTap: () {
+                          setState(() {
+                            playerStartsFirst = false;
+                          });
+                        },
+                        selectedColor: const Color(0xFFFF9900),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 32),
+                ],
+
+                const Spacer(),
+
+                // Start Game Button
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton.icon(
+                    onPressed: selectedMode != null
+                        ? () {
+                            if (selectedMode == 'friend') {
+                              Navigator.pushNamed(context, '/game', arguments: {
+                                'mode': 'friend',
+                                'playerStarts': true,
+                              });
+                            } else if (selectedMode == 'ai') {
+                              Navigator.pushNamed(context, '/game', arguments: {
+                                'mode': 'ai',
+                                'playerStarts': playerStartsFirst,
+                              });
+                            }
+                          }
+                        : null,
+                    icon: const Icon(Icons.play_arrow, color: Colors.black),
+                    label: const Text('Start Game',
+                        style: TextStyle(color: Colors.black)),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: selectedMode != null
+                          ? Theme.of(context).colorScheme.secondary
+                          : Colors.grey,
+                      foregroundColor: Colors.black,
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 40, vertical: 18),
+                      textStyle: const TextStyle(
+                          fontSize: 20, fontWeight: FontWeight.bold),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                      shadowColor: selectedMode != null
+                          ? Theme.of(context).colorScheme.secondary
+                          : Colors.grey,
+                      elevation: selectedMode != null ? 12 : 0,
+                    ),
                   ),
                 ),
-              ),
-              const SizedBox(height: 20),
-            ],
+                const SizedBox(height: 20),
+              ],
+            ),
           ),
         ),
       ),

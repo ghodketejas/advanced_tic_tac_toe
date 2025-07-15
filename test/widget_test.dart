@@ -12,6 +12,12 @@ import 'package:advanced_tic_tac_toe_game/main.dart';
 void main() {
   testWidgets('Advanced Tic Tac Toe UI renders and allows a player move',
       (WidgetTester tester) async {
+    tester.binding.window.physicalSizeTestValue = const Size(1200, 1800);
+    tester.binding.window.devicePixelRatioTestValue = 1.0;
+    addTearDown(() {
+      tester.binding.window.clearPhysicalSizeTestValue();
+      tester.binding.window.clearDevicePixelRatioTestValue();
+    });
     // Build the app
     await tester.pumpWidget(const AdvancedTicTacToeRoot());
     await tester.pump(const Duration(seconds: 1));
