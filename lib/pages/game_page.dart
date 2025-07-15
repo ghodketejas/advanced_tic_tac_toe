@@ -8,7 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:ui';
 
 /// The main game page for Advanced Tic Tac Toe
-/// 
+///
 /// This page handles:
 /// - Game board rendering and interaction
 /// - AI vs Player gameplay
@@ -30,13 +30,14 @@ class _AdvancedTicTacToePageState extends State<AdvancedTicTacToePage> {
   bool playerStartsNextGame = true;
   final StatsManager stats = StatsManager();
   bool _isLoading = true;
-  
+
   // Game mode variables
   String gameMode = 'ai'; // Default to AI mode
   bool recordStats = true; // Default to recording stats
 
   /// Gets the current game state key based on game mode
-  String get _currentGameStateKey => gameMode == 'ai' ? 'saved_game_state_ai' : 'saved_game_state_friend';
+  String get _currentGameStateKey =>
+      gameMode == 'ai' ? 'saved_game_state_ai' : 'saved_game_state_friend';
 
   @override
   void initState() {
@@ -48,7 +49,8 @@ class _AdvancedTicTacToePageState extends State<AdvancedTicTacToePage> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     // Get arguments passed from the game mode selection page
-    final args = ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
+    final args =
+        ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
     if (args != null) {
       gameMode = args['mode'] ?? 'ai';
       playerStartsNextGame = args['playerStarts'] ?? true;
@@ -76,11 +78,11 @@ class _AdvancedTicTacToePageState extends State<AdvancedTicTacToePage> {
     try {
       final prefs = await SharedPreferences.getInstance();
       final savedState = prefs.getString(_currentGameStateKey);
-      
+
       if (savedState != null && savedState.isNotEmpty) {
         final gameData = jsonDecode(savedState);
         game.fromJson(gameData);
-        
+
         // If there's an ongoing game, show a dialog asking if user wants to continue
         if (game.hasOngoingGame && game.winner.isEmpty) {
           WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -174,7 +176,9 @@ class _AdvancedTicTacToePageState extends State<AdvancedTicTacToePage> {
     return Scaffold(
       backgroundColor: const Color(0xFF181A20),
       appBar: AppBar(
-        title: Text(gameMode == 'friend' ? 'Advanced Tic Tac Toe (Friend Mode)' : 'Advanced Tic Tac Toe (AI Mode)'),
+        title: Text(gameMode == 'friend'
+            ? 'Advanced Tic Tac Toe (Friend Mode)'
+            : 'Advanced Tic Tac Toe (AI Mode)'),
         backgroundColor: const Color(0xFF23252B),
         elevation: 0,
         leading: IconButton(
@@ -188,13 +192,16 @@ class _AdvancedTicTacToePageState extends State<AdvancedTicTacToePage> {
         actions: [
           if (gameMode == 'ai')
             Padding(
-              padding: const EdgeInsets.only(right: 16.0, top: 8.0, bottom: 8.0),
+              padding:
+                  const EdgeInsets.only(right: 16.0, top: 8.0, bottom: 8.0),
               child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                 decoration: BoxDecoration(
                   color: const Color(0xFF23252B),
                   borderRadius: BorderRadius.circular(12),
-                  border: Border.all(color: const Color(0xFF00FFF7), width: 1.2),
+                  border:
+                      Border.all(color: const Color(0xFF00FFF7), width: 1.2),
                   boxShadow: [
                     BoxShadow(
                       color: const Color(0xFF00FFF7).withOpacity(0.08),
@@ -206,7 +213,8 @@ class _AdvancedTicTacToePageState extends State<AdvancedTicTacToePage> {
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    const Icon(Icons.auto_awesome, size: 18, color: Color(0xFF00FFF7)),
+                    const Icon(Icons.auto_awesome,
+                        size: 18, color: Color(0xFF00FFF7)),
                     const SizedBox(width: 4),
                     Text(
                       'AI: ${game.difficulty}',
@@ -239,7 +247,8 @@ class _AdvancedTicTacToePageState extends State<AdvancedTicTacToePage> {
                   ),
                   margin: const EdgeInsets.symmetric(horizontal: 32),
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 18.0, horizontal: 24.0),
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 18.0, horizontal: 24.0),
                     child: _buildStatusText(),
                   ),
                 ),
@@ -254,7 +263,8 @@ class _AdvancedTicTacToePageState extends State<AdvancedTicTacToePage> {
                     ),
                     margin: const EdgeInsets.symmetric(horizontal: 32),
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 18.0),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 16.0, horizontal: 18.0),
                       child: _buildControls(),
                     ),
                   ),
@@ -283,10 +293,14 @@ class _AdvancedTicTacToePageState extends State<AdvancedTicTacToePage> {
         statusColor = Colors.grey.shade400;
       } else if (gameMode == 'ai') {
         statusText = game.winner == 'X' ? 'You Win!' : 'Computer Wins!';
-        statusColor = game.winner == 'X' ? const Color(0xFF00FFF7) : const Color(0xFFFF9900);
+        statusColor = game.winner == 'X'
+            ? const Color(0xFF00FFF7)
+            : const Color(0xFFFF9900);
       } else {
         statusText = game.winner == 'X' ? 'Player X Wins!' : 'Player O Wins!';
-        statusColor = game.winner == 'X' ? const Color(0xFF00FFF7) : const Color(0xFFFF9900);
+        statusColor = game.winner == 'X'
+            ? const Color(0xFF00FFF7)
+            : const Color(0xFFFF9900);
       }
     } else if (gameMode == 'ai' && isComputerThinking) {
       statusText = 'Computer is thinking...';
@@ -297,7 +311,8 @@ class _AdvancedTicTacToePageState extends State<AdvancedTicTacToePage> {
       } else {
         statusText = game.isPlayerTurn ? 'Player X Turn' : 'Player O Turn';
       }
-      statusColor = game.isPlayerTurn ? const Color(0xFF00FFF7) : const Color(0xFFFF9900);
+      statusColor =
+          game.isPlayerTurn ? const Color(0xFF00FFF7) : const Color(0xFFFF9900);
     }
     return Text(
       statusText,
@@ -327,7 +342,8 @@ class _AdvancedTicTacToePageState extends State<AdvancedTicTacToePage> {
         spacing: 10,
         runSpacing: 8,
         children: [
-          const Text('Who starts:', style: TextStyle(fontSize: 16, color: Colors.white70)),
+          const Text('Who starts:',
+              style: TextStyle(fontSize: 16, color: Colors.white70)),
           CustomChoiceChip(
             label: 'You',
             selected: playerStartsNextGame,
@@ -406,9 +422,13 @@ class _AdvancedTicTacToePageState extends State<AdvancedTicTacToePage> {
     return AnimatedContainer(
       duration: const Duration(milliseconds: 300),
       decoration: BoxDecoration(
-        color: isActive && !isFinished ? Colors.transparent : const Color(0xFF23252B),
+        color: isActive && !isFinished
+            ? Colors.transparent
+            : const Color(0xFF23252B),
         border: Border.all(
-          color: isActive && !isFinished ? const Color(0xFF00FFF7) : const Color(0xFFFF9900),
+          color: isActive && !isFinished
+              ? const Color(0xFF00FFF7)
+              : const Color(0xFFFF9900),
           width: isActive && !isFinished ? 3.0 : 2.0,
         ),
         borderRadius: BorderRadius.circular(10),
@@ -444,14 +464,18 @@ class _AdvancedTicTacToePageState extends State<AdvancedTicTacToePage> {
                 ),
               ),
             ),
-          if (local.winner == 'X' || local.winner == 'O' || local.winner == 'Draw')
+          if (local.winner == 'X' ||
+              local.winner == 'O' ||
+              local.winner == 'Draw')
             Container(
               decoration: BoxDecoration(
                 color: Colors.black.withOpacity(0.55),
                 borderRadius: BorderRadius.circular(10),
               ),
             ),
-          if (local.winner == 'X' || local.winner == 'O' || local.winner == 'Draw')
+          if (local.winner == 'X' ||
+              local.winner == 'O' ||
+              local.winner == 'Draw')
             _buildLocalBoardOverlay(local),
         ],
       ),
@@ -478,8 +502,13 @@ class _AdvancedTicTacToePageState extends State<AdvancedTicTacToePage> {
           builder: (context, constraints) {
             final cellSize = constraints.biggest.shortestSide;
             return GestureDetector(
-              onTap: isActive && cellValue.isEmpty && game.winner.isEmpty && 
-                     (gameMode == 'friend' || (gameMode == 'ai' && game.isPlayerTurn && !isComputerThinking))
+              onTap: isActive &&
+                      cellValue.isEmpty &&
+                      game.winner.isEmpty &&
+                      (gameMode == 'friend' ||
+                          (gameMode == 'ai' &&
+                              game.isPlayerTurn &&
+                              !isComputerThinking))
                   ? () => _onCellTap(boardRow, boardCol, cellRow, cellCol)
                   : null,
               child: AnimatedContainer(
@@ -524,7 +553,7 @@ class _AdvancedTicTacToePageState extends State<AdvancedTicTacToePage> {
           width: 56,
           height: 56,
           child: CustomPaint(
-            painter: local.winner == 'X' 
+            painter: local.winner == 'X'
                 ? XSymbolPainter(
                     color: const Color(0xFF00FFF7),
                     strokeWidth: 4.0,
@@ -690,7 +719,7 @@ class _AdvancedTicTacToePageState extends State<AdvancedTicTacToePage> {
         _saveGame();
       });
     }
-    
+
     // Save the new game state
     _saveGame();
   }
@@ -814,4 +843,4 @@ class OSymbolPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
-} 
+}

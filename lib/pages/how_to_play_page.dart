@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 /// How to Play page that explains the rules of Advanced Tic Tac Toe
-/// 
+///
 /// This page provides a comprehensive guide to the game including:
 /// - Visual diagrams explaining the game board structure
 /// - Step-by-step instructions for gameplay
@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 class HowToPlayPage extends StatelessWidget {
   /// Creates a how to play page
   const HowToPlayPage({super.key});
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -88,10 +88,14 @@ class HowToPlayPage extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.secondary.withOpacity(0.1),
+                  color:
+                      Theme.of(context).colorScheme.secondary.withOpacity(0.1),
                   borderRadius: BorderRadius.circular(12),
                   border: Border.all(
-                    color: Theme.of(context).colorScheme.secondary.withOpacity(0.3),
+                    color: Theme.of(context)
+                        .colorScheme
+                        .secondary
+                        .withOpacity(0.3),
                     width: 1,
                   ),
                 ),
@@ -143,12 +147,15 @@ class _BigBoardDiagram extends StatelessWidget {
                 border: Border.all(color: color.withOpacity(0.3), width: 2),
               ),
               child: Table(
-                border: TableBorder.all(color: color.withOpacity(0.5), width: 2),
+                border:
+                    TableBorder.all(color: color.withOpacity(0.5), width: 2),
                 defaultColumnWidth: const FixedColumnWidth(36),
-                children: List.generate(3, (i) =>
-                  TableRow(
-                    children: List.generate(3, (j) =>
-                      Padding(
+                children: List.generate(
+                  3,
+                  (i) => TableRow(
+                    children: List.generate(
+                      3,
+                      (j) => Padding(
                         padding: const EdgeInsets.all(4.0),
                         child: Container(
                           height: 36,
@@ -157,7 +164,8 @@ class _BigBoardDiagram extends StatelessWidget {
                             color: color.withOpacity(0.07),
                             borderRadius: BorderRadius.circular(6),
                           ),
-                          child: Icon(Icons.grid_3x3, size: 22, color: color.withOpacity(0.7)),
+                          child: Icon(Icons.grid_3x3,
+                              size: 22, color: color.withOpacity(0.7)),
                         ),
                       ),
                     ),
@@ -167,7 +175,11 @@ class _BigBoardDiagram extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 6),
-          const Text('The "big board": 3x3 grid of tic-tac-toe boards', style: TextStyle(fontSize: 13, fontStyle: FontStyle.italic, color: Colors.grey)),
+          const Text('The "big board": 3x3 grid of tic-tac-toe boards',
+              style: TextStyle(
+                  fontSize: 13,
+                  fontStyle: FontStyle.italic,
+                  color: Colors.grey)),
         ],
       ),
     );
@@ -206,18 +218,20 @@ class _ExampleMoveDiagram extends StatelessWidget {
                       decoration: BoxDecoration(
                         color: isCurrent
                             ? accent.withOpacity(0.18)
-                            : (isTarget ? Colors.orange.withOpacity(0.13) : color.withOpacity(0.07)),
+                            : (isTarget
+                                ? Colors.orange.withOpacity(0.13)
+                                : color.withOpacity(0.07)),
                         border: Border.all(
                           color: isCurrent
                               ? accent
-                              : (isTarget ? Colors.orange : color.withOpacity(0.4)),
+                              : (isTarget
+                                  ? Colors.orange
+                                  : color.withOpacity(0.4)),
                           width: isCurrent || isTarget ? 2.2 : 1.2,
                         ),
                         borderRadius: BorderRadius.circular(6),
                       ),
-                      child: isCurrent
-                          ? _MiniBoardWithXAndArrow()
-                          : null,
+                      child: isCurrent ? _MiniBoardWithXAndArrow() : null,
                     );
                   },
                 ),
@@ -227,14 +241,20 @@ class _ExampleMoveDiagram extends StatelessWidget {
                   top: 28,
                   child: Transform.rotate(
                     angle: -0.5,
-                    child: const Icon(Icons.arrow_outward, color: Colors.orange, size: 36),
+                    child: const Icon(Icons.arrow_outward,
+                        color: Colors.orange, size: 36),
                   ),
                 ),
               ],
             ),
           ),
           const SizedBox(height: 6),
-          const Text('Playing X in top-right cell of center board sends opponent to top-right board', style: TextStyle(fontSize: 13, fontStyle: FontStyle.italic, color: Colors.grey)),
+          const Text(
+              'Playing X in top-right cell of center board sends opponent to top-right board',
+              style: TextStyle(
+                  fontSize: 13,
+                  fontStyle: FontStyle.italic,
+                  color: Colors.grey)),
         ],
       ),
     );
@@ -252,26 +272,37 @@ class _MiniBoardWithXAndArrow extends StatelessWidget {
         defaultColumnWidth: const FixedColumnWidth(12),
         children: [
           TableRow(children: [
-            _cell(), _cell(), _cell(x: true),
+            _cell(),
+            _cell(),
+            _cell(x: true),
           ]),
           TableRow(children: [
-            _cell(), _cell(), _cell(),
+            _cell(),
+            _cell(),
+            _cell(),
           ]),
           TableRow(children: [
-            _cell(), _cell(), _cell(),
+            _cell(),
+            _cell(),
+            _cell(),
           ]),
         ],
       ),
     );
   }
+
   Widget _cell({bool x = false}) => Container(
-    height: 14,
-    width: 14,
-    alignment: Alignment.center,
-    child: x
-        ? const Text('X', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.orange, fontSize: 13))
-        : null,
-  );
+        height: 14,
+        width: 14,
+        alignment: Alignment.center,
+        child: x
+            ? const Text('X',
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.orange,
+                    fontSize: 13))
+            : null,
+      );
 }
 
 class _FreeMoveDiagram extends StatelessWidget {
@@ -292,48 +323,62 @@ class _FreeMoveDiagram extends StatelessWidget {
                 border: Border.all(color: color.withOpacity(0.3), width: 2),
               ),
               child: Table(
-                border: TableBorder.all(color: color.withOpacity(0.5), width: 2),
+                border:
+                    TableBorder.all(color: color.withOpacity(0.5), width: 2),
                 defaultColumnWidth: const FixedColumnWidth(36),
                 children: [
                   TableRow(children: [
-                    _boardBlocked(), _boardFree(), _boardFree(),
+                    _boardBlocked(),
+                    _boardFree(),
+                    _boardFree(),
                   ]),
                   TableRow(children: [
-                    _boardFree(), _boardFree(), _boardFree(),
+                    _boardFree(),
+                    _boardFree(),
+                    _boardFree(),
                   ]),
                   TableRow(children: [
-                    _boardFree(), _boardFree(), _boardFree(),
+                    _boardFree(),
+                    _boardFree(),
+                    _boardFree(),
                   ]),
                 ],
               ),
             ),
           ),
           const SizedBox(height: 6),
-          const Text('If a board is blocked, you can play in any available board!', style: TextStyle(fontSize: 13, fontStyle: FontStyle.italic, color: Colors.grey)),
+          const Text(
+              'If a board is blocked, you can play in any available board!',
+              style: TextStyle(
+                  fontSize: 13,
+                  fontStyle: FontStyle.italic,
+                  color: Colors.grey)),
         ],
       ),
     );
   }
+
   Widget _boardBlocked() => Container(
-    height: 36,
-    width: 36,
-    decoration: BoxDecoration(
-      color: Colors.red.withOpacity(0.18),
-      borderRadius: BorderRadius.circular(6),
-      border: Border.all(color: Colors.red, width: 2),
-    ),
-    child: const Center(child: Icon(Icons.block, color: Colors.red, size: 22)),
-  );
+        height: 36,
+        width: 36,
+        decoration: BoxDecoration(
+          color: Colors.red.withOpacity(0.18),
+          borderRadius: BorderRadius.circular(6),
+          border: Border.all(color: Colors.red, width: 2),
+        ),
+        child:
+            const Center(child: Icon(Icons.block, color: Colors.red, size: 22)),
+      );
   Widget _boardFree() => Container(
-    height: 36,
-    width: 36,
-    decoration: BoxDecoration(
-      color: Colors.green.withOpacity(0.10),
-      borderRadius: BorderRadius.circular(6),
-      border: Border.all(color: Colors.green, width: 1),
-    ),
-    child: null,
-  );
+        height: 36,
+        width: 36,
+        decoration: BoxDecoration(
+          color: Colors.green.withOpacity(0.10),
+          borderRadius: BorderRadius.circular(6),
+          border: Border.all(color: Colors.green, width: 1),
+        ),
+        child: null,
+      );
 }
 
 // Add this new diagram widget for the active board highlight:
@@ -356,23 +401,29 @@ class _ActiveBoardDiagram extends StatelessWidget {
                 border: Border.all(color: color.withOpacity(0.3), width: 2),
               ),
               child: Table(
-                border: TableBorder.all(color: color.withOpacity(0.5), width: 2),
+                border:
+                    TableBorder.all(color: color.withOpacity(0.5), width: 2),
                 defaultColumnWidth: const FixedColumnWidth(36),
-                children: List.generate(3, (i) =>
-                  TableRow(
-                    children: List.generate(3, (j) =>
-                      Padding(
+                children: List.generate(
+                  3,
+                  (i) => TableRow(
+                    children: List.generate(
+                      3,
+                      (j) => Padding(
                         padding: const EdgeInsets.all(4.0),
                         child: Container(
                           height: 36,
                           width: 36,
                           decoration: BoxDecoration(
-                            color: (i == 1 && j == 1) ? accent.withOpacity(0.18) : color.withOpacity(0.07),
+                            color: (i == 1 && j == 1)
+                                ? accent.withOpacity(0.18)
+                                : color.withOpacity(0.07),
                             borderRadius: BorderRadius.circular(6),
                           ),
                           child: (i == 1 && j == 1)
                               ? Icon(Icons.star, color: accent, size: 22)
-                              : Icon(Icons.grid_3x3, size: 22, color: color.withOpacity(0.7)),
+                              : Icon(Icons.grid_3x3,
+                                  size: 22, color: color.withOpacity(0.7)),
                         ),
                       ),
                     ),
@@ -382,7 +433,11 @@ class _ActiveBoardDiagram extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 6),
-          const Text('The highlighted board is where you must play!', style: TextStyle(fontSize: 13, fontStyle: FontStyle.italic, color: Colors.grey)),
+          const Text('The highlighted board is where you must play!',
+              style: TextStyle(
+                  fontSize: 13,
+                  fontStyle: FontStyle.italic,
+                  color: Colors.grey)),
         ],
       ),
     );
@@ -409,46 +464,60 @@ class _LocalBoardWinDiagram extends StatelessWidget {
                 border: Border.all(color: color.withOpacity(0.3), width: 2),
               ),
               child: Table(
-                border: TableBorder.all(color: color.withOpacity(0.5), width: 2),
+                border:
+                    TableBorder.all(color: color.withOpacity(0.5), width: 2),
                 defaultColumnWidth: const FixedColumnWidth(36),
                 children: [
                   TableRow(children: [
-                    _cellX(accent), _cellX(accent), _cellX(accent),
+                    _cellX(accent),
+                    _cellX(accent),
+                    _cellX(accent),
                   ]),
                   TableRow(children: [
-                    _cell(), _cell(), _cell(),
+                    _cell(),
+                    _cell(),
+                    _cell(),
                   ]),
                   TableRow(children: [
-                    _cell(), _cell(), _cell(),
+                    _cell(),
+                    _cell(),
+                    _cell(),
                   ]),
                 ],
               ),
             ),
           ),
           const SizedBox(height: 6),
-          const Text('Three X\'s in a row wins the local board!', style: TextStyle(fontSize: 13, fontStyle: FontStyle.italic, color: Colors.grey)),
+          const Text('Three X\'s in a row wins the local board!',
+              style: TextStyle(
+                  fontSize: 13,
+                  fontStyle: FontStyle.italic,
+                  color: Colors.grey)),
         ],
       ),
     );
   }
+
   Widget _cell() => Container(
-    height: 36,
-    width: 36,
-    decoration: BoxDecoration(
-      color: Colors.transparent,
-      borderRadius: BorderRadius.circular(6),
-    ),
-  );
+        height: 36,
+        width: 36,
+        decoration: BoxDecoration(
+          color: Colors.transparent,
+          borderRadius: BorderRadius.circular(6),
+        ),
+      );
   Widget _cellX(Color accent) => Container(
-    height: 36,
-    width: 36,
-    alignment: Alignment.center,
-    decoration: BoxDecoration(
-      color: Colors.transparent,
-      borderRadius: BorderRadius.circular(6),
-    ),
-    child: Text('X', style: TextStyle(fontWeight: FontWeight.bold, color: accent, fontSize: 28)),
-  );
+        height: 36,
+        width: 36,
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+          color: Colors.transparent,
+          borderRadius: BorderRadius.circular(6),
+        ),
+        child: Text('X',
+            style: TextStyle(
+                fontWeight: FontWeight.bold, color: accent, fontSize: 28)),
+      );
 }
 
 class _GlobalBoardWinDiagram extends StatelessWidget {
@@ -470,46 +539,58 @@ class _GlobalBoardWinDiagram extends StatelessWidget {
                 border: Border.all(color: color.withOpacity(0.3), width: 2),
               ),
               child: Table(
-                border: TableBorder.all(color: color.withOpacity(0.5), width: 2),
+                border:
+                    TableBorder.all(color: color.withOpacity(0.5), width: 2),
                 defaultColumnWidth: const FixedColumnWidth(36),
                 children: [
                   TableRow(children: [
-                    _boardWin(accent), _boardWin(accent), _boardWin(accent),
+                    _boardWin(accent),
+                    _boardWin(accent),
+                    _boardWin(accent),
                   ]),
                   TableRow(children: [
-                    _board(), _board(), _board(),
+                    _board(),
+                    _board(),
+                    _board(),
                   ]),
                   TableRow(children: [
-                    _board(), _board(), _board(),
+                    _board(),
+                    _board(),
+                    _board(),
                   ]),
                 ],
               ),
             ),
           ),
           const SizedBox(height: 6),
-          const Text('Win three boards in a row to win the game!', style: TextStyle(fontSize: 13, fontStyle: FontStyle.italic, color: Colors.grey)),
+          const Text('Win three boards in a row to win the game!',
+              style: TextStyle(
+                  fontSize: 13,
+                  fontStyle: FontStyle.italic,
+                  color: Colors.grey)),
         ],
       ),
     );
   }
+
   Widget _board() => Container(
-    height: 36,
-    width: 36,
-    decoration: BoxDecoration(
-      color: Colors.transparent,
-      borderRadius: BorderRadius.circular(6),
-    ),
-  );
+        height: 36,
+        width: 36,
+        decoration: BoxDecoration(
+          color: Colors.transparent,
+          borderRadius: BorderRadius.circular(6),
+        ),
+      );
   Widget _boardWin(Color accent) => Container(
-    height: 36,
-    width: 36,
-    decoration: BoxDecoration(
-      color: accent.withOpacity(0.18),
-      borderRadius: BorderRadius.circular(6),
-      border: Border.all(color: accent, width: 2),
-    ),
-    child: Center(child: Icon(Icons.emoji_events, color: accent, size: 22)),
-  );
+        height: 36,
+        width: 36,
+        decoration: BoxDecoration(
+          color: accent.withOpacity(0.18),
+          borderRadius: BorderRadius.circular(6),
+          border: Border.all(color: accent, width: 2),
+        ),
+        child: Center(child: Icon(Icons.emoji_events, color: accent, size: 22)),
+      );
 }
 
 class _DrawBoardDiagram extends StatelessWidget {
@@ -530,36 +611,48 @@ class _DrawBoardDiagram extends StatelessWidget {
                 border: Border.all(color: color.withOpacity(0.3), width: 2),
               ),
               child: Table(
-                border: TableBorder.all(color: color.withOpacity(0.5), width: 2),
+                border:
+                    TableBorder.all(color: color.withOpacity(0.5), width: 2),
                 defaultColumnWidth: const FixedColumnWidth(36),
                 children: [
                   TableRow(children: [
-                    _drawCell(), _drawCell(), _drawCell(),
+                    _drawCell(),
+                    _drawCell(),
+                    _drawCell(),
                   ]),
                   TableRow(children: [
-                    _drawCell(), _drawCell(), _drawCell(),
+                    _drawCell(),
+                    _drawCell(),
+                    _drawCell(),
                   ]),
                   TableRow(children: [
-                    _drawCell(), _drawCell(), _drawCell(),
+                    _drawCell(),
+                    _drawCell(),
+                    _drawCell(),
                   ]),
                 ],
               ),
             ),
           ),
           const SizedBox(height: 6),
-          const Text('All boards finished, no winner: it\'s a draw!', style: TextStyle(fontSize: 13, fontStyle: FontStyle.italic, color: Colors.grey)),
+          const Text('All boards finished, no winner: it\'s a draw!',
+              style: TextStyle(
+                  fontSize: 13,
+                  fontStyle: FontStyle.italic,
+                  color: Colors.grey)),
         ],
       ),
     );
   }
+
   Widget _drawCell() => Container(
-    height: 36,
-    width: 36,
-    alignment: Alignment.center,
-    decoration: BoxDecoration(
-      color: Colors.transparent,
-      borderRadius: BorderRadius.circular(6),
-    ),
-    child: const Icon(Icons.remove, color: Colors.grey, size: 22),
-  );
-} 
+        height: 36,
+        width: 36,
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+          color: Colors.transparent,
+          borderRadius: BorderRadius.circular(6),
+        ),
+        child: const Icon(Icons.remove, color: Colors.grey, size: 22),
+      );
+}

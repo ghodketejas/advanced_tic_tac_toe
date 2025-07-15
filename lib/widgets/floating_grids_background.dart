@@ -2,22 +2,22 @@ import 'package:flutter/material.dart';
 import 'dart:ui';
 
 /// An animated background widget that displays floating grid patterns
-/// 
+///
 /// This widget creates a dynamic background with multiple animated grids
 /// that float around the screen to create a cyberpunk aesthetic.
 class FloatingGridsBackground extends StatelessWidget {
   /// Controller for the main background animation
   final AnimationController backgroundController;
-  
+
   /// Controller for the first grid animation
   final AnimationController gridController1;
-  
+
   /// Controller for the second grid animation
   final AnimationController gridController2;
-  
+
   /// Controller for the third grid animation
   final AnimationController gridController3;
-  
+
   /// The size of the screen
   final Size screenSize;
 
@@ -35,7 +35,7 @@ class FloatingGridsBackground extends StatelessWidget {
   Widget build(BuildContext context) {
     final w = screenSize.width;
     final h = screenSize.height;
-    
+
     return SizedBox.expand(
       child: Stack(
         children: [
@@ -245,7 +245,7 @@ class FloatingGridsBackground extends StatelessWidget {
 class FloatingGrid extends StatelessWidget {
   /// The size of the grid
   final double size;
-  
+
   /// The color of the grid lines
   final Color color;
 
@@ -306,4 +306,4 @@ class GridPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
-} 
+}

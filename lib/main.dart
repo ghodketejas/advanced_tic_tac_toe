@@ -9,13 +9,13 @@ import 'pages/about_page.dart';
 import 'pages/result_page.dart';
 
 /// Main entry point for the Advanced Tic Tac Toe application
-/// 
+///
 /// This function initializes and runs the Flutter app with the configured
 /// theme and routing setup.
 void main() => runApp(const AdvancedTicTacToeRoot());
 
 /// Root widget for the Advanced Tic Tac Toe application
-/// 
+///
 /// This widget configures the MaterialApp with:
 /// - Dark theme with neon blue and orange colors
 /// - Named routing for all pages

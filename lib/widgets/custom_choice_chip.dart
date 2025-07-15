@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 /// A custom choice chip widget with animated selection states
-/// 
+///
 /// This widget provides a selectable chip with:
 /// - Animated color transitions
 /// - Custom border styling
@@ -10,13 +10,13 @@ import 'package:flutter/material.dart';
 class CustomChoiceChip extends StatelessWidget {
   /// The text label displayed on the chip
   final String label;
-  
+
   /// Whether this chip is currently selected
   final bool selected;
-  
+
   /// Callback function when the chip is tapped
   final VoidCallback onTap;
-  
+
   /// The color to use when the chip is selected
   final Color selectedColor;
 
@@ -37,7 +37,8 @@ class CustomChoiceChip extends StatelessWidget {
         duration: const Duration(milliseconds: 200),
         padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 8),
         decoration: BoxDecoration(
-          color: selected ? selectedColor.withOpacity(0.15) : Colors.transparent,
+          color:
+              selected ? selectedColor.withOpacity(0.15) : Colors.transparent,
           border: Border.all(
             color: selected ? selectedColor : Colors.white38,
             width: selected ? 2.2 : 1.2,
@@ -56,4 +57,4 @@ class CustomChoiceChip extends StatelessWidget {
       ),
     );
   }
-} 
+}

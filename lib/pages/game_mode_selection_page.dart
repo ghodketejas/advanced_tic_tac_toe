@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../widgets/custom_choice_chip.dart';
 
 /// A page that allows users to select between different game modes
-/// 
+///
 /// This page provides options for:
 /// - Playing against a friend (no stats recorded)
 /// - Playing against AI (stats recorded)
@@ -49,7 +49,7 @@ class _GameModeSelectionPageState extends State<GameModeSelectionPage> {
                 ),
               ),
               const SizedBox(height: 32),
-              
+
               // Game Mode Options
               _buildModeOption(
                 title: 'Play Against Friend',
@@ -66,9 +66,9 @@ class _GameModeSelectionPageState extends State<GameModeSelectionPage> {
                 mode: 'ai',
                 color: Colors.blue,
               ),
-              
+
               const SizedBox(height: 32),
-              
+
               // Only show 'Who goes first?' for AI mode
               if (selectedMode == 'ai') ...[
                 const Text(
@@ -107,39 +107,44 @@ class _GameModeSelectionPageState extends State<GameModeSelectionPage> {
                 ),
                 const SizedBox(height: 32),
               ],
-              
+
               const Spacer(),
-              
+
               // Start Game Button
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton.icon(
-                  onPressed: selectedMode != null ? () {
-                    if (selectedMode == 'friend') {
-                      Navigator.pushNamed(context, '/game', arguments: {
-                        'mode': 'friend',
-                        'playerStarts': true,
-                      });
-                    } else if (selectedMode == 'ai') {
-                      Navigator.pushNamed(context, '/game', arguments: {
-                        'mode': 'ai',
-                        'playerStarts': playerStartsFirst,
-                      });
-                    }
-                  } : null,
+                  onPressed: selectedMode != null
+                      ? () {
+                          if (selectedMode == 'friend') {
+                            Navigator.pushNamed(context, '/game', arguments: {
+                              'mode': 'friend',
+                              'playerStarts': true,
+                            });
+                          } else if (selectedMode == 'ai') {
+                            Navigator.pushNamed(context, '/game', arguments: {
+                              'mode': 'ai',
+                              'playerStarts': playerStartsFirst,
+                            });
+                          }
+                        }
+                      : null,
                   icon: const Icon(Icons.play_arrow, color: Colors.black),
-                  label: const Text('Start Game', style: TextStyle(color: Colors.black)),
+                  label: const Text('Start Game',
+                      style: TextStyle(color: Colors.black)),
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: selectedMode != null 
+                    backgroundColor: selectedMode != null
                         ? Theme.of(context).colorScheme.secondary
                         : Colors.grey,
                     foregroundColor: Colors.black,
-                    padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 18),
-                    textStyle: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 40, vertical: 18),
+                    textStyle: const TextStyle(
+                        fontSize: 20, fontWeight: FontWeight.bold),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30),
                     ),
-                    shadowColor: selectedMode != null 
+                    shadowColor: selectedMode != null
                         ? Theme.of(context).colorScheme.secondary
                         : Colors.grey,
                     elevation: selectedMode != null ? 12 : 0,
@@ -179,13 +184,15 @@ class _GameModeSelectionPageState extends State<GameModeSelectionPage> {
             width: isSelected ? 2.5 : 1.5,
           ),
           borderRadius: BorderRadius.circular(16),
-          boxShadow: isSelected ? [
-            BoxShadow(
-              color: color.withOpacity(0.3),
-              blurRadius: 12,
-              offset: const Offset(0, 4),
-            ),
-          ] : null,
+          boxShadow: isSelected
+              ? [
+                  BoxShadow(
+                    color: color.withOpacity(0.3),
+                    blurRadius: 12,
+                    offset: const Offset(0, 4),
+                  ),
+                ]
+              : null,
         ),
         child: Row(
           children: [
@@ -219,7 +226,8 @@ class _GameModeSelectionPageState extends State<GameModeSelectionPage> {
                     subtitle,
                     style: TextStyle(
                       fontSize: 14,
-                      color: isSelected ? color.withOpacity(0.8) : Colors.white70,
+                      color:
+                          isSelected ? color.withOpacity(0.8) : Colors.white70,
                     ),
                   ),
                 ],
@@ -236,4 +244,4 @@ class _GameModeSelectionPageState extends State<GameModeSelectionPage> {
       ),
     );
   }
-} 
+}

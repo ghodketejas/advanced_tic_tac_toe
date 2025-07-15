@@ -4,7 +4,7 @@ import '../widgets/stat_box.dart';
 import '../stats_manager.dart';
 
 /// The main launch page of the Advanced Tic Tac Toe app
-/// 
+///
 /// This page serves as the home screen and includes:
 /// - Animated background with floating grids
 /// - Game title with animations
@@ -24,13 +24,13 @@ class LaunchPage extends StatelessWidget {
 class _LaunchPageContent extends StatefulWidget {
   /// Creates the launch page content
   const _LaunchPageContent();
-  
+
   @override
   State<_LaunchPageContent> createState() => _LaunchPageContentState();
 }
 
 /// State class for the launch page content
-class _LaunchPageContentState extends State<_LaunchPageContent> 
+class _LaunchPageContentState extends State<_LaunchPageContent>
     with TickerProviderStateMixin {
   final StatsManager stats = StatsManager();
   bool _loading = true;
@@ -43,23 +43,23 @@ class _LaunchPageContentState extends State<_LaunchPageContent>
   void initState() {
     super.initState();
     _loadStats();
-    
+
     // Initialize animation controllers
     _backgroundController = AnimationController(
       duration: const Duration(seconds: 20),
       vsync: this,
     )..repeat();
-    
+
     _gridController1 = AnimationController(
       duration: const Duration(seconds: 15),
       vsync: this,
     )..repeat();
-    
+
     _gridController2 = AnimationController(
       duration: const Duration(seconds: 12),
       vsync: this,
     )..repeat();
-    
+
     _gridController3 = AnimationController(
       duration: const Duration(seconds: 18),
       vsync: this,
@@ -93,7 +93,7 @@ class _LaunchPageContentState extends State<_LaunchPageContent>
   @override
   Widget build(BuildContext context) {
     final Size screenSize = MediaQuery.of(context).size;
-    
+
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: Stack(
@@ -132,7 +132,10 @@ class _LaunchPageContentState extends State<_LaunchPageContent>
                           shadows: [
                             Shadow(
                               blurRadius: 24,
-                              color: Theme.of(context).colorScheme.primary.withOpacity(0.7),
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .primary
+                                  .withOpacity(0.7),
                               offset: const Offset(0, 0),
                             ),
                           ],
@@ -142,14 +145,19 @@ class _LaunchPageContentState extends State<_LaunchPageContent>
                     const SizedBox(height: 32),
                     // Start Game Button
                     ElevatedButton.icon(
-                      onPressed: () => Navigator.pushNamed(context, '/game_mode'),
+                      onPressed: () =>
+                          Navigator.pushNamed(context, '/game_mode'),
                       icon: const Icon(Icons.play_arrow, color: Colors.black),
-                      label: const Text('Start Game', style: TextStyle(color: Colors.black)),
+                      label: const Text('Start Game',
+                          style: TextStyle(color: Colors.black)),
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Theme.of(context).colorScheme.secondary,
+                        backgroundColor:
+                            Theme.of(context).colorScheme.secondary,
                         foregroundColor: Colors.black,
-                        padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 18),
-                        textStyle: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 40, vertical: 18),
+                        textStyle: const TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30),
                         ),
@@ -160,13 +168,21 @@ class _LaunchPageContentState extends State<_LaunchPageContent>
                     const SizedBox(height: 20),
                     // How to Play Button
                     OutlinedButton.icon(
-                      onPressed: () => Navigator.pushNamed(context, '/howtoplay'),
-                      icon: Icon(Icons.help_outline, color: Theme.of(context).colorScheme.secondary),
-                      label: Text('How to Play', style: TextStyle(color: Theme.of(context).colorScheme.secondary)),
+                      onPressed: () =>
+                          Navigator.pushNamed(context, '/howtoplay'),
+                      icon: Icon(Icons.help_outline,
+                          color: Theme.of(context).colorScheme.secondary),
+                      label: Text('How to Play',
+                          style: TextStyle(
+                              color: Theme.of(context).colorScheme.secondary)),
                       style: OutlinedButton.styleFrom(
-                        side: BorderSide(color: Theme.of(context).colorScheme.secondary, width: 2),
-                        padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 14),
-                        textStyle: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                        side: BorderSide(
+                            color: Theme.of(context).colorScheme.secondary,
+                            width: 2),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 32, vertical: 14),
+                        textStyle: const TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30),
                         ),
@@ -176,12 +192,16 @@ class _LaunchPageContentState extends State<_LaunchPageContent>
                     // About/Credits Button
                     OutlinedButton.icon(
                       onPressed: () => Navigator.pushNamed(context, '/about'),
-                      icon: const Icon(Icons.info_outline, color: Colors.white70),
-                      label: const Text('About / Credits', style: TextStyle(color: Colors.white70)),
+                      icon:
+                          const Icon(Icons.info_outline, color: Colors.white70),
+                      label: const Text('About / Credits',
+                          style: TextStyle(color: Colors.white70)),
                       style: OutlinedButton.styleFrom(
                         side: const BorderSide(color: Colors.white70, width: 2),
-                        padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 14),
-                        textStyle: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 32, vertical: 14),
+                        textStyle: const TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30),
                         ),
@@ -190,11 +210,17 @@ class _LaunchPageContentState extends State<_LaunchPageContent>
                     const SizedBox(height: 24),
                     // Stats display
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 24, vertical: 12),
                       decoration: BoxDecoration(
-                        color: Theme.of(context).colorScheme.surface.withOpacity(0.9),
+                        color: Theme.of(context)
+                            .colorScheme
+                            .surface
+                            .withOpacity(0.9),
                         borderRadius: BorderRadius.circular(16),
-                        border: Border.all(color: Theme.of(context).colorScheme.primary, width: 1.2),
+                        border: Border.all(
+                            color: Theme.of(context).colorScheme.primary,
+                            width: 1.2),
                         boxShadow: [
                           BoxShadow(
                             color: Colors.black.withOpacity(0.3),
@@ -204,25 +230,35 @@ class _LaunchPageContentState extends State<_LaunchPageContent>
                         ],
                       ),
                       child: _loading
-                          ? const SizedBox(height: 60, child: Center(child: CircularProgressIndicator()))
+                          ? const SizedBox(
+                              height: 60,
+                              child: Center(child: CircularProgressIndicator()))
                           : Column(
                               children: [
-                                Text(
-                                  'Stats', 
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold, 
-                                    color: Theme.of(context).colorScheme.primary
-                                  )
-                                ),
+                                Text('Stats',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .primary)),
                                 const SizedBox(height: 6),
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    StatBox(label: 'Wins', value: stats.wins, color: Colors.greenAccent),
+                                    StatBox(
+                                        label: 'Wins',
+                                        value: stats.wins,
+                                        color: Colors.greenAccent),
                                     const SizedBox(width: 12),
-                                    StatBox(label: 'Losses', value: stats.losses, color: Colors.redAccent),
+                                    StatBox(
+                                        label: 'Losses',
+                                        value: stats.losses,
+                                        color: Colors.redAccent),
                                     const SizedBox(width: 12),
-                                    StatBox(label: 'Draws', value: stats.draws, color: Colors.amberAccent),
+                                    StatBox(
+                                        label: 'Draws',
+                                        value: stats.draws,
+                                        color: Colors.amberAccent),
                                   ],
                                 ),
                               ],
@@ -238,4 +274,4 @@ class _LaunchPageContentState extends State<_LaunchPageContent>
       ),
     );
   }
-} 
+}

@@ -10,7 +10,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:advanced_tic_tac_toe_game/main.dart';
 
 void main() {
-  testWidgets('Advanced Tic Tac Toe UI renders and allows a player move', (WidgetTester tester) async {
+  testWidgets('Advanced Tic Tac Toe UI renders and allows a player move',
+      (WidgetTester tester) async {
     // Build the app
     await tester.pumpWidget(const AdvancedTicTacToeRoot());
 

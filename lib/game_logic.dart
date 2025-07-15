@@ -22,20 +22,28 @@ class LocalBoard {
   /// Checks for a winner or draw and updates [winner].
   void _checkWinner() {
     for (int i = 0; i < 3; i++) {
-      if (cells[i][0] != '' && cells[i][0] == cells[i][1] && cells[i][1] == cells[i][2]) {
+      if (cells[i][0] != '' &&
+          cells[i][0] == cells[i][1] &&
+          cells[i][1] == cells[i][2]) {
         winner = cells[i][0];
         return;
       }
-      if (cells[0][i] != '' && cells[0][i] == cells[1][i] && cells[1][i] == cells[2][i]) {
+      if (cells[0][i] != '' &&
+          cells[0][i] == cells[1][i] &&
+          cells[1][i] == cells[2][i]) {
         winner = cells[0][i];
         return;
       }
     }
-    if (cells[0][0] != '' && cells[0][0] == cells[1][1] && cells[1][1] == cells[2][2]) {
+    if (cells[0][0] != '' &&
+        cells[0][0] == cells[1][1] &&
+        cells[1][1] == cells[2][2]) {
       winner = cells[0][0];
       return;
     }
-    if (cells[0][2] != '' && cells[0][2] == cells[1][1] && cells[1][1] == cells[2][0]) {
+    if (cells[0][2] != '' &&
+        cells[0][2] == cells[1][1] &&
+        cells[1][1] == cells[2][0]) {
       winner = cells[0][2];
       return;
     }
@@ -46,7 +54,11 @@ class LocalBoard {
 
   /// Returns true if the move is within bounds and the cell is empty.
   bool _isValidMove(int row, int col) {
-    return row >= 0 && row < 3 && col >= 0 && col < 3 && cells[row][col].isEmpty;
+    return row >= 0 &&
+        row < 3 &&
+        col >= 0 &&
+        col < 3 &&
+        cells[row][col].isEmpty;
   }
 
   /// Returns true if there is at least one empty cell.
@@ -77,9 +89,9 @@ class LocalBoard {
   void fromJson(Map<String, dynamic> json) {
     if (json['cells'] != null) {
       var cellsData = json['cells'] as List;
-      cells = cellsData.map((row) => 
-        (row as List).map((cell) => cell.toString()).toList()
-      ).toList();
+      cells = cellsData
+          .map((row) => (row as List).map((cell) => cell.toString()).toList())
+          .toList();
     }
     winner = json['winner']?.toString() ?? '';
   }
@@ -90,7 +102,8 @@ class LocalBoard {
 /// The board is a 3x3 grid of LocalBoards. Each move sends the next player to a specific local board.
 class AdvancedTicTacToeGame {
   /// 3x3 grid of LocalBoards.
-  List<List<LocalBoard>> boards = List.generate(3, (_) => List.generate(3, (_) => LocalBoard()));
+  List<List<LocalBoard>> boards =
+      List.generate(3, (_) => List.generate(3, (_) => LocalBoard()));
 
   /// 'X' (player) or 'O' (computer). True if it's player's turn.
   bool isPlayerTurn = true;
@@ -125,7 +138,8 @@ class AdvancedTicTacToeGame {
     if (winner.isNotEmpty) return false;
     if (!_isValidMove(boardRow, boardCol, cellRow, cellCol)) return false;
     String currentPlayer = isPlayerTurn ? 'X' : 'O';
-    bool moved = boards[boardRow][boardCol].makeMove(cellRow, cellCol, currentPlayer);
+    bool moved =
+        boards[boardRow][boardCol].makeMove(cellRow, cellCol, currentPlayer);
     if (moved) {
       isPlayerTurn = !isPlayerTurn;
       _updateForcedBoard(cellRow, cellCol);
@@ -230,25 +244,38 @@ class AdvancedTicTacToeGame {
   /// Checks for a global winner or draw and updates [winner].
   void _checkWinner() {
     // Build a 3x3 meta-board of local winners
-    List<List<String>> meta = List.generate(3, (i) => List.generate(3, (j) => boards[i][j].winner));
+    List<List<String>> meta =
+        List.generate(3, (i) => List.generate(3, (j) => boards[i][j].winner));
     for (int i = 0; i < 3; i++) {
-      if (meta[i][0] != '' && meta[i][0] != 'Draw' && meta[i][0] == meta[i][1] && meta[i][1] == meta[i][2]) {
+      if (meta[i][0] != '' &&
+          meta[i][0] != 'Draw' &&
+          meta[i][0] == meta[i][1] &&
+          meta[i][1] == meta[i][2]) {
         winner = meta[i][0];
         _adjustDifficulty(winner == 'O');
         return;
       }
-      if (meta[0][i] != '' && meta[0][i] != 'Draw' && meta[0][i] == meta[1][i] && meta[1][i] == meta[2][i]) {
+      if (meta[0][i] != '' &&
+          meta[0][i] != 'Draw' &&
+          meta[0][i] == meta[1][i] &&
+          meta[1][i] == meta[2][i]) {
         winner = meta[0][i];
         _adjustDifficulty(winner == 'O');
         return;
       }
     }
-    if (meta[0][0] != '' && meta[0][0] != 'Draw' && meta[0][0] == meta[1][1] && meta[1][1] == meta[2][2]) {
+    if (meta[0][0] != '' &&
+        meta[0][0] != 'Draw' &&
+        meta[0][0] == meta[1][1] &&
+        meta[1][1] == meta[2][2]) {
       winner = meta[0][0];
       _adjustDifficulty(winner == 'O');
       return;
     }
-    if (meta[0][2] != '' && meta[0][2] != 'Draw' && meta[0][2] == meta[1][1] && meta[1][1] == meta[2][0]) {
+    if (meta[0][2] != '' &&
+        meta[0][2] != 'Draw' &&
+        meta[0][2] == meta[1][1] &&
+        meta[1][1] == meta[2][0]) {
       winner = meta[0][2];
       _adjustDifficulty(winner == 'O');
       return;
@@ -310,7 +337,9 @@ class AdvancedTicTacToeGame {
   /// Convert game state to JSON for saving
   Map<String, dynamic> toJson() {
     return {
-      'boards': boards.map((row) => row.map((board) => board.toJson()).toList()).toList(),
+      'boards': boards
+          .map((row) => row.map((board) => board.toJson()).toList())
+          .toList(),
       'isPlayerTurn': isPlayerTurn,
       'winner': winner,
       'difficulty': difficulty,
@@ -322,18 +351,18 @@ class AdvancedTicTacToeGame {
   void fromJson(Map<String, dynamic> json) {
     if (json['boards'] != null) {
       var boardsData = json['boards'] as List;
-      boards = boardsData.map((row) => 
-        (row as List).map((boardData) {
-          var board = LocalBoard();
-          board.fromJson(boardData as Map<String, dynamic>);
-          return board;
-        }).toList()
-      ).toList();
+      boards = boardsData
+          .map((row) => (row as List).map((boardData) {
+                var board = LocalBoard();
+                board.fromJson(boardData as Map<String, dynamic>);
+                return board;
+              }).toList())
+          .toList();
     }
     isPlayerTurn = json['isPlayerTurn'] ?? true;
     winner = json['winner']?.toString() ?? '';
     difficulty = json['difficulty'] ?? 50;
-    
+
     // Handle forcedBoard conversion
     if (json['forcedBoard'] != null) {
       var forcedBoardData = json['forcedBoard'] as List;
@@ -346,7 +375,7 @@ class AdvancedTicTacToeGame {
   /// Check if there's an ongoing game (not finished and has moves)
   bool get hasOngoingGame {
     if (winner.isNotEmpty) return false;
-    
+
     // Check if any board has moves
     for (var row in boards) {
       for (var board in row) {

@@ -40,12 +40,12 @@ class StatsManager {
     wins++;
     save();
   }
-  
+
   void incrementLoss() {
     losses++;
     save();
   }
-  
+
   void incrementDraw() {
     draws++;
     save();
@@ -67,4 +67,4 @@ class StatsManager {
     draws = 0;
     await save();
   }
-} 
+}

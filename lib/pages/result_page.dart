@@ -5,7 +5,8 @@ class ResultPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final args = ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
+    final args =
+        ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
     final String result = args?['result'] ?? '';
     final String gameMode = args?['gameMode'] ?? 'ai';
 
@@ -91,12 +92,15 @@ class ResultPage extends StatelessWidget {
                         );
                       },
                       icon: const Icon(Icons.refresh, color: Colors.black),
-                      label: const Text('Play Again', style: TextStyle(color: Colors.black)),
+                      label: const Text('Play Again',
+                          style: TextStyle(color: Colors.black)),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: color,
                         foregroundColor: Colors.black,
-                        padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 18),
-                        textStyle: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 0, vertical: 18),
+                        textStyle: const TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30),
                         ),
@@ -109,14 +113,18 @@ class ResultPage extends StatelessWidget {
                   Expanded(
                     child: OutlinedButton.icon(
                       onPressed: () {
-                        Navigator.of(context).pushNamedAndRemoveUntil('/', (route) => false);
+                        Navigator.of(context)
+                            .pushNamedAndRemoveUntil('/', (route) => false);
                       },
                       icon: const Icon(Icons.home, color: Colors.white70),
-                      label: const Text('Main Menu', style: TextStyle(color: Colors.white70)),
+                      label: const Text('Main Menu',
+                          style: TextStyle(color: Colors.white70)),
                       style: OutlinedButton.styleFrom(
                         side: const BorderSide(color: Colors.white70, width: 2),
-                        padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 16),
-                        textStyle: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 0, vertical: 16),
+                        textStyle: const TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30),
                         ),
@@ -131,4 +139,4 @@ class ResultPage extends StatelessWidget {
       ),
     );
   }
-} 
+}

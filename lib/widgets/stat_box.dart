@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 
 /// A widget that displays a single statistic with colored styling
-/// 
+///
 /// This widget is used to show game statistics (wins, losses, draws)
 /// with consistent styling and color coding.
 class StatBox extends StatelessWidget {
   /// The label text for the statistic (e.g., "Wins", "Losses")
   final String label;
-  
+
   /// The numeric value to display
   final int value;
-  
+
   /// The color theme for this statistic
   final Color color;
 
@@ -52,4 +52,4 @@ class StatBox extends StatelessWidget {
       ),
     );
   }
-} 
+}

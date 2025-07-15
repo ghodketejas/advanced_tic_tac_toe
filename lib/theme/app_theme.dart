@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 /// App theme configuration for Advanced Tic Tac Toe
-/// 
+///
 /// This class contains all the theme-related configurations including:
 /// - Color scheme (neon blue and orange)
 /// - Typography settings
@@ -10,13 +10,13 @@ import 'package:flutter/material.dart';
 class AppTheme {
   /// Primary neon blue color used throughout the app
   static const Color primaryBlue = Color(0xFF00FFF7);
-  
+
   /// Secondary neon orange color used for accents
   static const Color secondaryOrange = Color(0xFFFF9900);
-  
+
   /// Dark background color
   static const Color darkBackground = Color(0xFF181A20);
-  
+
   /// Surface color for cards and elevated elements
   static const Color surfaceColor = Color(0xFF23252B);
 
@@ -56,4 +56,4 @@ class AppTheme {
       iconTheme: const IconThemeData(color: primaryBlue),
     );
   }
-} 
+}
