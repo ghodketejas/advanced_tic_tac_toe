@@ -4,6 +4,10 @@
 
 A modern, cross-platform implementation of Advanced Tic Tac Toe built with Flutter. This isn't your ordinary tic-tac-toe - it's a strategic game where you play on a 3x3 grid of tic-tac-toe boards!
 
+## 🌐 Live Demo
+
+Play the game online: [https://ghodketejas.github.io/advanced_tic_tac_toe/](https://ghodketejas.github.io/advanced_tic_tac_toe/)
+
 ## 🎮 Game Features
 
 - **Advanced Tic Tac Toe Gameplay**: Play on a 3x3 grid of tic-tac-toe boards
@@ -17,6 +21,11 @@ A modern, cross-platform implementation of Advanced Tic Tac Toe built with Flutt
 - **Cross-Platform**: Works on Android, iOS, Web, Windows, macOS, and Linux
 
 ## 🚀 Getting Started
+
+### Web Version
+
+The latest web version is always available at the [Live Demo](#-live-demo) link above.  
+Every push to the `main` branch automatically updates the web version via GitHub Actions and Pages.
 
 ### Prerequisites
 - [Flutter SDK](https://flutter.dev/docs/get-started/install) (version 3.4.3 or higher)
@@ -46,6 +55,11 @@ A modern, cross-platform implementation of Advanced Tic Tac Toe built with Flutt
 - **macOS:** `flutter run -d macos`
 - **Linux:** `flutter run -d linux`
 
+## 🚀 Automated Deployment
+
+This project uses GitHub Actions to automatically build and deploy the Flutter web app to GitHub Pages (`/docs` folder) on every push to `main`.  
+No manual deployment steps are required!
+
 ## 📁 Project Structure
 
 ```
@@ -66,6 +80,8 @@ lib/
     ├── floating_grids_background.dart
     ├── stat_box.dart        # Statistics display
     └── custom_choice_chip.dart
+
+docs/                        # Contains the latest web build for GitHub Pages hosting (auto-updated)
 ```
 
 ## 🎯 How to Play Advanced Tic Tac Toe
@@ -109,6 +125,11 @@ The app tracks your performance with:
 - Win percentage
 - Persistent storage across app sessions
 
+## 🛠️ Troubleshooting
+
+If you see a blank page on the web version, try a hard refresh (`Ctrl+Shift+R`).  
+If the problem persists, please open an issue!
+
 ## 🤝 Contributing
 
 Contributions are welcome! Here's how you can help:
@@ -118,7 +139,7 @@ Contributions are welcome! Here's how you can help:
 3. **Make your changes** and add tests if applicable
 4. **Commit your changes**: `git commit -m 'Add amazing feature'`
 5. **Push to the branch**: `git push origin feature/amazing-feature`
-6. **Open a Pull Request**
+6. **Open a Pull Request`
 
 ### Development Guidelines
 - Follow Dart/Flutter best practices
