@@ -25,10 +25,12 @@ void main() {
 
     // Select 'Play Against AI' mode
     await tester.tap(
-      find.ancestor(
-        of: find.text('Play Against AI'),
-        matching: find.byType(GestureDetector),
-      ).first,
+      find
+          .ancestor(
+            of: find.text('Play Against AI'),
+            matching: find.byType(GestureDetector),
+          )
+          .first,
     );
     await tester.pump(const Duration(seconds: 1));
 
