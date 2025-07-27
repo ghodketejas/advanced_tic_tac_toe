@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:ui';
+import 'dart:math';
 
 /// An animated background widget that displays floating grid patterns
 ///
@@ -71,6 +72,7 @@ class FloatingGridsBackground extends StatelessWidget {
                     child: FloatingGrid(
                       size: 320,
                       color: Color(0xFF00FFF7),
+                      showSymbols: true,
                     ),
                   ),
                 ),
@@ -95,6 +97,7 @@ class FloatingGridsBackground extends StatelessWidget {
                     child: FloatingGrid(
                       size: 260,
                       color: Color(0xFFFF9900),
+                      showSymbols: true,
                     ),
                   ),
                 ),
@@ -191,6 +194,7 @@ class FloatingGridsBackground extends StatelessWidget {
                     child: FloatingGrid(
                       size: 70,
                       color: Color(0xFF00FFF7),
+                      showSymbols: true,
                     ),
                   ),
                 ),
@@ -215,6 +219,7 @@ class FloatingGridsBackground extends StatelessWidget {
                     child: FloatingGrid(
                       size: 60,
                       color: Color(0xFFFF9900),
+                      showSymbols: true,
                     ),
                   ),
                 ),
@@ -249,11 +254,15 @@ class FloatingGrid extends StatelessWidget {
   /// The color of the grid lines
   final Color color;
 
+  /// Whether to draw random X / O symbols inside the cells.
+  final bool showSymbols;
+
   /// Creates a floating grid
   const FloatingGrid({
     super.key,
     required this.size,
     required this.color,
+    this.showSymbols = false,
   });
 
   @override
@@ -262,7 +271,7 @@ class FloatingGrid extends StatelessWidget {
       width: size,
       height: size,
       child: CustomPaint(
-        painter: GridPainter(color: color),
+        painter: GridPainter(color: color, addSymbols: showSymbols),
       ),
     );
   }
@@ -273,8 +282,11 @@ class GridPainter extends CustomPainter {
   /// The color of the grid lines
   final Color color;
 
+  /// Whether to draw random X / O symbols.
+  final bool addSymbols;
+
   /// Creates a grid painter
-  GridPainter({required this.color});
+  GridPainter({required this.color, this.addSymbols = false});
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -302,8 +314,47 @@ class GridPainter extends CustomPainter {
         paint,
       );
     }
+
+    // Optionally draw symbols.
+    if (addSymbols) {
+      final symbolPaint = Paint()
+        ..color = color.withOpacity(0.65)
+        ..strokeWidth = 2.0
+        ..style = PaintingStyle.stroke;
+
+      final rand = Random();
+
+      for (int row = 0; row < 3; row++) {
+        for (int col = 0; col < 3; col++) {
+          final r = rand.nextDouble();
+          if (r < 0.25) {
+            // Draw X
+            final double padding = cellSize * 0.25;
+            final Offset tl =
+                Offset(col * cellSize + padding, row * cellSize + padding);
+            final Offset br = Offset(
+                (col + 1) * cellSize - padding, (row + 1) * cellSize - padding);
+            canvas.drawLine(tl, br, symbolPaint);
+
+            final Offset tr = Offset(
+                (col + 1) * cellSize - padding, row * cellSize + padding);
+            final Offset bl = Offset(
+                col * cellSize + padding, (row + 1) * cellSize - padding);
+            canvas.drawLine(tr, bl, symbolPaint);
+          } else if (r < 0.5) {
+            // Draw O
+            final double padding = cellSize * 0.28;
+            final Offset center = Offset(col * cellSize + cellSize / 2,
+                row * cellSize + cellSize / 2);
+            canvas.drawCircle(center, cellSize / 2 - padding, symbolPaint);
+          }
+        }
+      }
+    }
   }
 
   @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
+  bool shouldRepaint(covariant GridPainter oldDelegate) {
+    return oldDelegate.color != color || oldDelegate.addSymbols != addSymbols;
+  }
 }

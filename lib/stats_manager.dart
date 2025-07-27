@@ -5,11 +5,25 @@ class StatsManager {
   static const _lossKey = 'losses';
   static const _drawKey = 'draws';
 
+  /// Whether stats should be persisted.  
+  /// This can be toggled at runtime (e.g. after asking the user for
+  /// permission when running on the web). When disabled, all read / write
+  /// operations become no-ops and the in-memory counters stay at zero.
+  static bool isEnabled = true;
+
   int wins = 0;
   int losses = 0;
   int draws = 0;
 
   Future<void> load() async {
+    if (!isEnabled) {
+      // Persistence disabled – keep defaults (zeros).
+      wins = 0;
+      losses = 0;
+      draws = 0;
+      return;
+    }
+
     try {
       final prefs = await SharedPreferences.getInstance();
       wins = prefs.getInt(_winKey) ?? 0;
@@ -25,6 +39,8 @@ class StatsManager {
   }
 
   Future<void> save() async {
+    if (!isEnabled) return;
+
     try {
       final prefs = await SharedPreferences.getInstance();
       await prefs.setInt(_winKey, wins);

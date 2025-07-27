@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:shared_preferences/shared_preferences.dart';
+
 import '../widgets/floating_grids_background.dart';
 import '../widgets/stat_box.dart';
 import '../stats_manager.dart';
@@ -42,7 +45,7 @@ class _LaunchPageContentState extends State<_LaunchPageContent>
   @override
   void initState() {
     super.initState();
-    _loadStats();
+    _handleCookieConsent();
 
     // Initialize animation controllers
     _backgroundController = AnimationController(
@@ -75,7 +78,44 @@ class _LaunchPageContentState extends State<_LaunchPageContent>
     super.dispose();
   }
 
-  /// Loads statistics from persistent storage
+  /// Handles cookie-consent logic on the web (no-op elsewhere).
+  Future<void> _handleCookieConsent() async {
+    if (!kIsWeb) {
+      // Not running on the web – no consent required.
+      await _loadStats();
+      return;
+    }
+
+    final prefs = await SharedPreferences.getInstance();
+    final bool? consent = prefs.getBool('cookie_consent');
+
+    if (consent == null) {
+      // Ask the user for consent after the first frame so the context is ready.
+      WidgetsBinding.instance.addPostFrameCallback((_) async {
+        final bool granted = await _showCookieConsentDialog(context);
+        await prefs.setBool('cookie_consent', granted);
+        StatsManager.isEnabled = granted;
+        if (granted) {
+          await _loadStats();
+        } else {
+          setState(() {
+            _loading = false;
+          });
+        }
+      });
+    } else {
+      StatsManager.isEnabled = consent;
+      if (consent) {
+        await _loadStats();
+      } else {
+        setState(() {
+          _loading = false;
+        });
+      }
+    }
+  }
+
+  /// Loads statistics from persistent storage (only if enabled).
   Future<void> _loadStats() async {
     try {
       await stats.load();
@@ -88,6 +128,49 @@ class _LaunchPageContentState extends State<_LaunchPageContent>
         _loading = false;
       });
     }
+  }
+
+  /// Displays a dialog asking the user for permission to store cookies.
+  Future<bool> _showCookieConsentDialog(BuildContext context) async {
+    final bool? result = await showDialog<bool>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext dialogContext) {
+        return AlertDialog(
+          backgroundColor: const Color(0xFF23252B),
+          title: const Text(
+            'Allow Cookies?',
+            style: TextStyle(color: Color(0xFF00FFF7)),
+          ),
+          content: const Text(
+            'We can store your game statistics locally in your browser so you can track your performance. Do you allow us to save this information as cookies?',
+            style: TextStyle(color: Colors.white70),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(dialogContext).pop(false);
+              },
+              child: const Text(
+                'Decline',
+                style: TextStyle(color: Color(0xFFFF9900)),
+              ),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.of(dialogContext).pop(true);
+              },
+              style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xFF00FFF7),
+                  foregroundColor: Colors.black),
+              child: const Text('Allow'),
+            ),
+          ],
+        );
+      },
+    );
+
+    return result ?? false;
   }
 
   @override
