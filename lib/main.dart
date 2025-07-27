@@ -8,6 +8,10 @@ import 'pages/how_to_play_page.dart';
 import 'pages/about_page.dart';
 import 'pages/result_page.dart';
 
+// Route observer to allow pages to listen for navigation events (e.g. when
+// returning to the landing page so that it can refresh stats).
+final RouteObserver<PageRoute<dynamic>> routeObserver = RouteObserver<PageRoute<dynamic>>();
+
 /// Main entry point for the Advanced Tic Tac Toe application
 ///
 /// This function initializes and runs the Flutter app with the configured
@@ -32,6 +36,7 @@ class AdvancedTicTacToeRoot extends StatelessWidget {
       themeMode: ThemeMode.dark,
       debugShowCheckedModeBanner: false,
       initialRoute: '/',
+      navigatorObservers: [routeObserver],
       routes: {
         '/': (context) => const LaunchPage(),
         '/game_mode': (context) => const GameModeSelectionPage(),

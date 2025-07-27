@@ -11,16 +11,14 @@ class StatsManager {
   /// operations become no-ops and the in-memory counters stay at zero.
   static bool isEnabled = true;
 
-  int wins = 0;
-  int losses = 0;
-  int draws = 0;
+  static int wins = 0;
+  static int losses = 0;
+  static int draws = 0;
 
   Future<void> load() async {
     if (!isEnabled) {
-      // Persistence disabled – keep defaults (zeros).
-      wins = 0;
-      losses = 0;
-      draws = 0;
+      // Persistence disabled – skip loading from SharedPreferences but keep
+      // any in-memory values so they are visible during the session.
       return;
     }
 

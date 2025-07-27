@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../main.dart';
 import '../widgets/floating_grids_background.dart';
 import '../widgets/stat_box.dart';
 import '../stats_manager.dart';
@@ -34,7 +35,7 @@ class _LaunchPageContent extends StatefulWidget {
 
 /// State class for the launch page content
 class _LaunchPageContentState extends State<_LaunchPageContent>
-    with TickerProviderStateMixin {
+    with TickerProviderStateMixin, RouteAware {
   final StatsManager stats = StatsManager();
   bool _loading = true;
   late AnimationController _backgroundController;
@@ -70,12 +71,30 @@ class _LaunchPageContentState extends State<_LaunchPageContent>
   }
 
   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    // Subscribe to route changes.
+    final ModalRoute<dynamic>? route = ModalRoute.of(context);
+    if (route is PageRoute) {
+      routeObserver.subscribe(this, route);
+    }
+  }
+
+  @override
   void dispose() {
+    routeObserver.unsubscribe(this);
     _backgroundController.dispose();
     _gridController1.dispose();
     _gridController2.dispose();
     _gridController3.dispose();
     super.dispose();
+  }
+
+  // Called when another page pops and this page shows again.
+  @override
+  void didPopNext() {
+    // Reload stats in case they changed while another page was on top.
+    _loadStats();
   }
 
   /// Handles cookie-consent logic on the web (no-op elsewhere).
@@ -330,17 +349,17 @@ class _LaunchPageContentState extends State<_LaunchPageContent>
                                   children: [
                                     StatBox(
                                         label: 'Wins',
-                                        value: stats.wins,
+                                        value: StatsManager.wins,
                                         color: Colors.greenAccent),
                                     const SizedBox(width: 12),
                                     StatBox(
                                         label: 'Losses',
-                                        value: stats.losses,
+                                        value: StatsManager.losses,
                                         color: Colors.redAccent),
                                     const SizedBox(width: 12),
                                     StatBox(
                                         label: 'Draws',
-                                        value: stats.draws,
+                                        value: StatsManager.draws,
                                         color: Colors.amberAccent),
                                   ],
                                 ),

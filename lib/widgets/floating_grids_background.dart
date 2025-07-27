@@ -227,6 +227,56 @@ class FloatingGridsBackground extends StatelessWidget {
             },
           ),
 
+          // Tiny blue grid around center-top
+          AnimatedBuilder(
+            animation: backgroundController,
+            builder: (context, child) {
+              final double t = (backgroundController.value + 0.3) % 1.0;
+              return Transform.translate(
+                offset: Offset(
+                  lerpDouble(w * 0.1, w * 0.5, t)!,
+                  lerpDouble(h * 0.0, h * 0.4, t)!,
+                ),
+                child: Transform.rotate(
+                  angle: t * 4 * 3.14159,
+                  child: const Opacity(
+                    opacity: 0.14,
+                    child: FloatingGrid(
+                      size: 50,
+                      color: Color(0xFF00FFF7),
+                      showSymbols: true,
+                    ),
+                  ),
+                ),
+              );
+            },
+          ),
+
+          // Tiny orange grid around center-bottom
+          AnimatedBuilder(
+            animation: backgroundController,
+            builder: (context, child) {
+              final double t = (backgroundController.value + 0.6) % 1.0;
+              return Transform.translate(
+                offset: Offset(
+                  lerpDouble(w * 0.9, w * 0.4, t)!,
+                  lerpDouble(h * 0.7, h * 0.3, t)!,
+                ),
+                child: Transform.rotate(
+                  angle: -t * 4 * 3.14159,
+                  child: const Opacity(
+                    opacity: 0.14,
+                    child: FloatingGrid(
+                      size: 55,
+                      color: Color(0xFFFF9900),
+                      showSymbols: true,
+                    ),
+                  ),
+                ),
+              );
+            },
+          ),
+
           // Blur overlay
           Container(
             decoration: BoxDecoration(
